@@ -32,11 +32,8 @@ def login():
 
         try:
             user = db.query(User).filter_by(username=username).first()
-            pwd = user.password
-            print(user.username)
-            print(pwd)
 
-            if username == user.username and password == pwd:
+            if username == user.username and password == user.password:
                 response = make_response(render_template("index.html", movies=movies, name=username))
                 response.set_cookie("c_username", username)
             else:
