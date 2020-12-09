@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>{% block title %}{{movie.title}}{% endblock %}</title>
+</head>
+<body>
+    <div id="menubar">
+        <div>
+            <form method="post" action="/logout">
+                <button class="logout_btn" type="submit">Logout</button>
+            </form>
+            <h4 id="menu">Welcome back, {{name}}</h4>
+        </div>
+    </div>
+    <div id="center">
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Summary</th>
+                <th>IMDB</th>
+                <th>Rating</th>
+                <th>Length</th>
+                <th>Seasons</th>
+                <th>Verdict</th>
+            </tr>
+            <tr>
+                <td>{{movie.title}}</td>
+                <td>{{movie.summary}}</td>
+                <td><a href="{{movie.imdb}}">Link</a></td>
+                <td>{{movie.rating}}</td>
+                <td>{{movie.length}}</td>
+                <td>{{movie.season}}</td>
+                <td>{{movie.verdict}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

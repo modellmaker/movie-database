@@ -7,47 +7,56 @@
 </head>
 <body>
 
-    {% if not name%}
-    <div id="main">
-        <h2>Welcome to the SmartNinja movie database!</h2>
-        {% if not message%}
-            <p>To access our page, You need to login below. If You don't have an account yet, You can easily sign up <a href="/signup-main">here.</a></p>
-            <div class="login-box">
-                {% include "login.html" %}
-            </div>
-        {% else %}
-            {{message}}<br><br>
-            <div class="login-box">
-                {% include "login.html" %}
-            </div>
-        {% endif %}
+{% if not name%}
+<div id="main">
+    <h2>Welcome to the SmartNinja movie database!</h2>
+    {% if not message%}
+    <p>To access our page, You need to login below. If You don't have an account yet, You can easily sign up <a
+            href="/signup-main">here.</a></p>
+    <div class="login-box">
+        {% include "login.html" %}
+    </div>
+    {% else %}
+    {{message}}<br><br>
+    <div class="login-box">
+        {% include "login.html" %}
     </div>
     {% endif %}
-    {% if name %}
-    <div id="menubar">
-        <div>
-            <form method="post" action="/logout">
-                <button class="logout_btn" type="submit">Logout</button>
-            </form>
-            <h4 id="menu">Welcome back, {{name}}</h4>
-        </div>
+</div>
+{% endif %}
+{% if name %}
+<div id="menubar">
+    <div>
+        <form method="post" action="/logout">
+            <button class="logout_btn" type="submit">Logout</button>
+        </form>
+        <h4 id="menu">Welcome back, {{name}}</h4>
     </div>
-    <div id="center">
-        <table>
-            <tr>
-                <th>Title</th>
-                <th>Summary</th>
-                <th>IMDB</th>
-            </tr>
-            {% for movie in movies %}
-            <tr>
-                <td>{{movie.title}}</td>
-                <td>{{movie.summary}}</td>
-                <td><a href="{{movie.imdb}}">Link</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-    {% endif %}
+</div>
+<div id="center">
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Summary</th>
+            <th>IMDB</th>
+            <th>Info</th>
+            {% if movie_link %}
+                <th>Rating</th>
+                <th>Length</th>
+                <th>Seasons</th>
+                <th>Verdict</th>
+            {% endif %}
+        </tr>
+        {% for movie in movies %}
+        <tr>
+            <td>{{movie.title}}</td>
+            <td>{{movie.summary}}</td>
+            <td><a href="{{movie.imdb}}">Link</a></td>
+            <td><a href="/movies/{{movie.title}}">More</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
 </body>
 </html>
