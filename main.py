@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, redirect
 from models import User, MovieDB, db
 import uuid
 import hashlib
@@ -41,6 +41,22 @@ def index():
         return render_template("index.html", movies=movies, name=user.username)
     else:
         return render_template("index.html")
+
+
+@app.route("/delete", methods=["POST"])
+def delete():
+    session_token = request.cookies.get("session_token")
+    if session_token:
+        movie_id = request.form.get("movie_id")
+        db.query(MovieDB).filter(MovieDB.id == movie_id).delete()
+    return redirect("/")
+
+
+@app.route("/update", methods=["POST"])
+def update():
+    session_token = request.cookies.get("session_token")
+    if session_token:
+        movie = request.form.get("movie")
 
 
 @app.route("/movies/<title>")

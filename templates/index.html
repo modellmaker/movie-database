@@ -53,6 +53,11 @@
             <td>{{movie.summary}}</td>
             <td><a href="{{movie.imdb}}">Link</a></td>
             <td><a href="/movies/{{movie.title}}">More</a></td>
+            <td>
+                <form method="post" action="/delete">
+                    <button type="submit" name="movie_id" value="{{movie.id}}">Delete</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
