@@ -22,7 +22,7 @@ class Movies:
 '''
 egy = Movies("cim", "leiras", "IMDB", "1.1", "1:23:45", "1", "verdict")
 ketto = Movies("cim2", "leiras2", "IMDB2", "1.2", "2:00:00", "2", "verdict2")
-harom = Movies("cim3", "leiras3", "IMDB3", "1.3", "3:00:00", "3", "verdict2")
+harom = Movies("cim3", "leiras3", "IMDB3", "1.3", "3:00:00", "3", "verdict3")
 movies = [egy, ketto, harom]
 
 for movie in movies:
@@ -52,16 +52,32 @@ def delete():
     return redirect("/")
 
 
-@app.route("/update", methods=["POST"])
-def update():
+@app.route("/update/<id>", methods=["GET", "POST"])
+def update(id):
     session_token = request.cookies.get("session_token")
+    user = db.query(User).filter_by(session_token=session_token).first()
     if session_token:
-        movie = request.form.get("movie")
+        if request.method == 'GET':
+            movie = db.query(MovieDB).filter_by(id=id).first()
+            return render_template("movie.html", name=user.username, movie=movie)
+        elif request.method == "POST":
+            movie_id = request.form.get("movie_id")
+            movie = db.query(MovieDB).filter(MovieDB.id == movie_id).first()
+            movie.title = request.form.get("title")
+            movie.summary = request.form.get("summary")
+            movie.imdb = request.form.get("imdb")
+            movie.rating = request.form.get("rating")
+            movie.length = request.form.get("length")
+            movie.season = request.form.get("season")
+            movie.verdict = request.form.get("verdict")
+            db.update(MovieDB)
+            db.commit()
+            return redirect("/")
 
 
-@app.route("/movies/<title>")
-def movielink(title):
-    movie = db.query(MovieDB).filter_by(title=title).first()
+@app.route("/movies/<id>")
+def movielink(id):
+    movie = db.query(MovieDB).filter_by(id=id).first()
     session_token = request.cookies.get("session_token")
     if session_token:
         user = db.query(User).filter_by(session_token=session_token).first()

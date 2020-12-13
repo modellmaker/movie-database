@@ -102,6 +102,7 @@ th{
 #center{
     float: right;
     width: 100%;
+    margin-left: 15em;
 }
 
 .logout_btn{
@@ -109,4 +110,14 @@ th{
     margin-right: 2em;
     padding: 5px 5px;
     line-height: 120%;
+}
+
+#update{
+    margin: 2em;
+}
+
+.a_btn{
+    float: left;
+    margin-left: 15em;
+    margin-top: 2em;
 }

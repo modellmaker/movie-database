@@ -2,25 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>{% block title %}{{movie.title}}{% endblock %}</title>
 </head>
 <body>
-    <form action="/update" method="post">
-        <label for="title">Title</label>
-        <input id="title" name="title"><br>
-        <label for="summary">Summary</label>
-        <input id="summary" name="summary"><br>
-        <label for="IMDB">IMDB</label>
-        <input id="IMDB" name="imdb"><br>
-        <label for="rating">Rating</label>
-        <input id="rating" name="rating"><br>
-        <label for="length">Length</label>
-        <input id="length" name="length"><br>
-        <label for="season">Season</label>
-        <input id="season" name="season"><br>
-        <label for="verdict">Verdict</label>
-        <input id="verdict" name="verdict"><br>
-        <button type="submit" name="movie_id" value="{{movie_id}}">Update</button>
-    </form>
+    <div id="menubar">
+        <div>
+            <form method="post" action="/logout">
+                <button class="logout_btn" type="submit">Logout</button>
+            </form>
+            <h4 id="menu">Welcome back, {{name}}</h4>
+        </div>
+    </div>
+    <div id="update">
+        <form action="/update/<id>" method="post">
+            <label for="title">Title</label>
+            <input id="title" name="title" value="{{movie.title}}"><br>
+
+            <label for="summary">Summary</label>
+            <input id="summary" name="summary" value="{{movie.summary}}"><br>
+
+            <label for="IMDB">IMDB</label>
+            <input id="IMDB" name="imdb" value="{{movie.imdb}}"><br>
+
+            <label for="rating">Rating</label>
+            <input id="rating" name="rating" value="{{movie.rating}}"><br>
+
+            <label for="length">Length</label>
+            <input id="length" name="length" value="{{movie.length}}"><br>
+
+            <label for="season">Season</label>
+            <input id="season" name="season" value="{{movie.season}}"><br>
+
+            <label for="verdict">Verdict</label>
+            <input id="verdict" name="verdict" value="{{movie.verdict}}"><br>
+
+            <button type="submit" name="movie_id" value="{{movie.id}}">Save</button>
+        </form>
+    </div>
 </body>
 </html>

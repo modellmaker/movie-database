@@ -52,7 +52,8 @@
             <td>{{movie.title}}</td>
             <td>{{movie.summary}}</td>
             <td><a href="{{movie.imdb}}">Link</a></td>
-            <td><a href="/movies/{{movie.title}}">More</a></td>
+            <td><a href="/movies/{{movie.id}}">More</a></td>
+            <td><a href="/update/{{movie.id}}">Update</a></td>
             <td>
                 <form method="post" action="/delete">
                     <button type="submit" name="movie_id" value="{{movie.id}}">Delete</button>
