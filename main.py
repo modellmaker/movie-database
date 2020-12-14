@@ -62,7 +62,10 @@ def update(id):
             return render_template("movie.html", name=user.username, movie=movie)
         elif request.method == "POST":
             movie_id = request.form.get("movie_id")
-            movie = db.query(MovieDB).filter(MovieDB.id == movie_id).first()
+            if movie_id:
+                movie = db.query(MovieDB).filter(MovieDB.id == movie_id).first()
+            else:
+                movie = MovieDB()
             movie.title = request.form.get("title")
             movie.summary = request.form.get("summary")
             movie.imdb = request.form.get("imdb")
@@ -70,7 +73,7 @@ def update(id):
             movie.length = request.form.get("length")
             movie.season = request.form.get("season")
             movie.verdict = request.form.get("verdict")
-            db.update(MovieDB)
+            db.add(movie)
             db.commit()
             return redirect("/")
 
